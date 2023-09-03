@@ -1,9 +1,11 @@
 import NavBar from "@/components/NavBar";
 import DataRow from "./DataRow";
+import Button from "@/components/Button";
+import { CreditCardIcon, CurrencyDollarIcon } from "@heroicons/react/24/outline";
 
 async function getSimuladores(){
   const url = "http://localhost:8080/api/simuladores"
-  const response = await fetch(url, { next: { revalidate: 0 } })
+  const response = await fetch(url, { next: { revalidate: 3600 } })
   return response.json()
 }
 
@@ -15,7 +17,11 @@ export default async function Simulacoes() {
       <NavBar active={"simulacoes"}/>
 
       <main className="bg-slate-900 m-20 p-8">
-        <h2 className=" text-slate-100">Simulações</h2>
+        <div className="flex justify-between items-center">
+          <h2 className=" text-slate-100">Simulações</h2>
+          <Button icon={<CurrencyDollarIcon className="h-6 w-6"/>} href="/simulacoes/new">criar simulação</Button>
+        </div>
+
         <div>
           <div id="data" className="text-slate-300">
             {data._embedded.entityModelList.map(simulador => {
