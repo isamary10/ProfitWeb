@@ -4,7 +4,7 @@ import Button from "@/components/Button";
 import { CreditCardIcon, CurrencyDollarIcon } from "@heroicons/react/24/outline";
 
 async function getSimuladores(){
-  const url = "http://localhost:8080/api/simuladores"
+  const url = "https://profit-production-a4ce.up.railway.app/api/simuladores"
   const response = await fetch(url, { next: { revalidate: 3600 } })
   return response.json()
 }

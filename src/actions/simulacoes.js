@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache"
 
 export async function create(formData){
-  const url = "http://localhost:8080/api/simuladores"
+  const url = "https://profit-production-a4ce.up.railway.app/api/simuladores"
 
   const options = {
     method: "POST",
