@@ -2,13 +2,7 @@ import NavBar from "@/components/NavBar";
 import DataRow from "./DataRow";
 import Button from "@/components/Button";
 import { CreditCardIcon, CurrencyDollarIcon } from "@heroicons/react/24/outline";
-
-async function getSimuladores(){
-  const url = "https://profit-production-a4ce.up.railway.app/api/simuladores"
-  //const url = "https://localhost:8080/api/simuladores"
-  const response = await fetch(url, { next: { revalidate: 3600 } })
-  return response.json()
-}
+import { getSimuladores } from "@/actions/simulacoes";
 
 export default async function Simulacoes() {
   const data = await getSimuladores()
