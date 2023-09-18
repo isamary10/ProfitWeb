@@ -5,6 +5,7 @@ import { CreditCardIcon, CurrencyDollarIcon } from "@heroicons/react/24/outline"
 
 async function getSimuladores(){
   const url = "https://profit-production-a4ce.up.railway.app/api/simuladores"
+  //const url = "https://localhost:8080/api/simuladores"
   const response = await fetch(url, { next: { revalidate: 3600 } })
   return response.json()
 }
@@ -24,9 +25,12 @@ export default async function Simulacoes() {
 
         <div>
           <div id="data" className="text-slate-300">
-            {data._embedded.entityModelList.map(simulador => {
-              return <DataRow simulador={simulador} />
-            })}
+          {data._links.self.href && (
+            <DataRow simulador={data._links.self.href} />
+          )}
+            {/* {data._links.self.href.map(simulador => {
+              return <DataRow simulador={data._links.self.href} />
+            })} */}
 
           </div>
         </div>

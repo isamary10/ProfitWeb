@@ -2,7 +2,7 @@ import NavBar from "@/components/NavBar";
 import DataRow from "./DataRow";
 
 async function getCursos(){
-  const url = "http://localhost:8080/api/cursos"
+  const url = "https://profit-production-a4ce.up.railway.app/api/cursos"
   const response = await fetch(url, { next: { revalidate: 0 } })
   return response.json()
 }
@@ -18,9 +18,12 @@ export default async function Cursos() {
         <h2 className=" text-slate-100">Cursos</h2>
         <div>
           <div id="data" className="text-slate-300">
-            {data._embedded.entityModelList.map(curso => {
+            {data._links.self.href && (
+              <DataRow curso={data._links.self.href} />
+            )}
+            {/* {data._embedded.entityModelList.map(curso => {
               return <DataRow curso={curso} />
-            })}
+            })} */}
 
           </div>
         </div>
