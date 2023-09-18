@@ -10,8 +10,8 @@ export default function DataRow({ simulador }) {
           <span>{simulador.tipoInvest}</span>
         </div>
         <span>{simulador.tempoInvest} meses</span>
-        <div>
-          <DropMenu className="text-slate-300"/>
+        <div className="text-slate-300">
+          <DropMenu simulador={simulador} />
         </div>
       </div>
 

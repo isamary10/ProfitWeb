@@ -21,10 +21,62 @@ export async function create(formData){
   }
 
   revalidatePath("/simulacoes")
-  return {ok:"Conta cadastrada com sucesso"}
+  return {ok:"Simulador cadastrada com sucesso"}
 }
 
 export async function getSimuladores(){
+  await new Promise(r => setTimeout(r, 5000));
   const response = await fetch(url, { next: { revalidate: 3600 } })
   return response.json()
+}
+
+export async function destroy(id){
+  const deleteUrl = url + "/" + id
+  // const deleteUrl = `${url}/${id}`
+
+  const options = {
+    method: "DELETE"
+  }
+
+  const response = await fetch(deleteUrl, options)
+
+  if(!response.ok){
+    const json = (await response).json()
+    return {error: "Falha ao apagar a simulacao. Verifique se existem simulações"}
+  }
+
+  revalidatePath("/simulacoes")
+}
+
+export async function getSimulador(id){
+  const getUrl = url + "/" + id
+  const response = await fetch(getUrl)
+  const json = await response.json()
+
+  if(!response.ok){
+    return {error: "Falha ao carregar simulador. " + json.message}
+  }
+
+  return json
+}
+
+export async function update(simulador){
+  const updateUrl = url + "/" + simulador.id
+
+  const options = {
+    method: "PUT",
+    body: JSON.stringify(simulador),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }
+
+  const response = await fetch(url, options)
+  if (!response.ok){
+    const json = await response.json()
+    return {error: "Erro ao editar" + mensagens}
+  }
+
+  revalidatePath("/simulacoes")
+  return {ok:"Simulador alterado com sucesso"}
 }
