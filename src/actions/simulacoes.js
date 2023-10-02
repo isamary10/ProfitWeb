@@ -1,6 +1,7 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
+import { cookies } from "next/headers"
 
 const url = process.env.NEXT_PUBLIC_BASE_URL + "/simuladores"
 
@@ -25,9 +26,17 @@ export async function create(formData){
 }
 
 export async function getSimuladores(){
-  await new Promise(r => setTimeout(r, 5000));
-  const response = await fetch(url, { next: { revalidate: 3600 } })
-  return response.json()
+  const token = cookies().get("profit_token")
+  const options = {
+    headers: {
+      "Authorization": `Bearer ${token.value}`
+    }
+  }
+  const response = await fetch(url,options)
+
+  if (response.status !== 200) throw new Error("Não foi possível carregar os dados")
+
+  return await response.json()
 }
 
 export async function destroy(id){

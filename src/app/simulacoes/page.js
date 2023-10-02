@@ -1,7 +1,7 @@
 import NavBar from "@/components/NavBar";
 import DataRow from "./DataRow";
 import Button from "@/components/Button";
-import { CreditCardIcon, CurrencyDollarIcon } from "@heroicons/react/24/outline";
+import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { getSimuladores } from "@/actions/simulacoes";
 
 export default async function Simulacoes() {
